@@ -13,6 +13,10 @@ export default function Home() {
     dispatch({ type: ActionType.SET_CONTEXT, value: "login"})
   }
 
+  useEffect(() => {
+    setCdApiStuff()
+  })
+
   return (
     <div className={styles.container}>
       <Head>

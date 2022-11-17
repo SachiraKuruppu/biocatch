@@ -7,11 +7,8 @@ import { useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Script src="https://bcdn-4ff4f23f.we-stats.com/scripts/4ff4f23f/4ff4f23f.js" />
-      <BioCatchProvider>
-        <Component {...pageProps} />
-      </BioCatchProvider>
-    </>
+    <BioCatchProvider>
+      <Component {...pageProps} />
+    </BioCatchProvider>
   )
 }
