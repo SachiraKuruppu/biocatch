@@ -1,8 +1,18 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect } from 'react'
+import { ActionType, useBioCatch } from '../contexts/biocatch'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const { state, dispatch } = useBioCatch();
+  
+  const setCdApiStuff = () => {
+    console.log("setCdApi")
+    dispatch({ type: ActionType.SET_SESSION_ID, value: "jgh875wdwlv0skue63"})
+    dispatch({ type: ActionType.SET_CONTEXT, value: "login"})
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -27,7 +37,7 @@ export default function Home() {
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
+          <a className={styles.card} onClick={setCdApiStuff}>
             <h2>Learn &rarr;</h2>
             <p>Learn about Next.js in an interactive course with quizzes!</p>
           </a>
