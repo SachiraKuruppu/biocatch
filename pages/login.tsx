@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React, { useState } from 'react';
 import styles from '../styles/Login.module.css';
 
@@ -15,6 +16,10 @@ export default function Login() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
     });
+
+    if (response.status === 200) {
+      Router.push('/dashboard');
+    }
   };
 
   return (
