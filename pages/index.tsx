@@ -1,21 +1,21 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect } from 'react'
-import { ActionType, useBioCatch } from '../contexts/biocatch'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { ActionType, useBioCatch } from '../contexts/biocatch';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const { state, dispatch } = useBioCatch();
-  
+
   const setCdApiStuff = () => {
-    console.log("setCdApi")
-    dispatch({ type: ActionType.SET_SESSION_ID, value: "jgh875wdwlv0skue63"})
-    dispatch({ type: ActionType.SET_CONTEXT, value: "login"})
-  }
+    console.log('setCdApi');
+    dispatch({ type: ActionType.SET_SESSION_ID, value: 'jgh875wdwlv0skue63' });
+    dispatch({ type: ActionType.SET_CONTEXT, value: 'login' });
+  };
 
   useEffect(() => {
-    setCdApiStuff()
-  })
+    setCdApiStuff();
+  });
 
   return (
     <div className={styles.container}>
@@ -81,5 +81,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
