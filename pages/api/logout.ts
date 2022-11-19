@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { serialize } from 'v8';
 import { getSerializedCookie } from '../../lib/auth';
 
 export default function Logout(req: NextApiRequest, res: NextApiResponse) {

@@ -1,17 +1,18 @@
-import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
+import { SignJWT, jwtVerify } from 'jose';
 
 const SECRET = process.env.SECRET as string;
 
-export function generateSignedToken(user: { id: number; email: string }) {
-  return sign(
-    {
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 3, // 3 days
-      id: user.id,
-      username: user.email
-    },
-    SECRET
-  );
+export async function generateSignedToken(user: { id: number; email: string }) {
+  const now = Math.floor(Date.now() / 1000);
+  const expiry = now + 60 * 60 * 24 * 3;
+
+  return new SignJWT(user)
+    .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+    .setExpirationTime(expiry)
+    .setIssuedAt(now)
+    .setNotBefore(now)
+    .sign(new TextEncoder().encode(SECRET));
 }
 
 export function getSerializedCookie(token: string) {
@@ -22,4 +23,19 @@ export function getSerializedCookie(token: string) {
     maxAge: 60 * 60 * 24 * 3,
     path: '/'
   });
+}
+
+export async function getUserFromToken(jwt: string | undefined) {
+  if (jwt === undefined) {
+    return undefined;
+  }
+
+  try {
+    const { payload } = await jwtVerify(jwt, new TextEncoder().encode(SECRET));
+    return payload;
+  } catch (error) {
+    console.error('Error occurred while verifying the JWT token', error);
+  }
+
+  return undefined;
 }

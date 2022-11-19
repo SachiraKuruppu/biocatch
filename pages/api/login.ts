@@ -20,7 +20,7 @@ export default async function Login(req: NextApiRequest, res: NextApiResponse) {
     user.email === username &&
     (await argon2.verify(user.hashedPassword, password))
   ) {
-    const token = generateSignedToken(user);
+    const token = await generateSignedToken(user);
     const serializedCookie = getSerializedCookie(token);
 
     res.setHeader('Set-Cookie', serializedCookie);
