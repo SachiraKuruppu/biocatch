@@ -1,14 +1,15 @@
-import '../styles/globals.css'
-import Script from 'next/script'
-import { BioCatchProvider } from '../contexts/biocatch'
-import type { AppProps } from 'next/app'
-import { useState } from 'react';
-
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
+import * as randomstring from 'randomstring';
+import { setCustomerSessionId } from '../client-lib/biocatch';
 
 export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <BioCatchProvider>
-      <Component {...pageProps} />
-    </BioCatchProvider>
-  )
+  useEffect(() => {
+    const sessionId = randomstring.generate(18);
+    setCustomerSessionId(sessionId);
+    console.log(`Customer session id set as ${sessionId}`);
+  });
+
+  return <Component {...pageProps} />;
 }
