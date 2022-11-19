@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSerializedCookie } from '../../lib/auth';
+import { getSerializedCookie } from '../../server-lib/auth';
 
 export default function Logout(req: NextApiRequest, res: NextApiResponse) {
   const { cookies } = req;

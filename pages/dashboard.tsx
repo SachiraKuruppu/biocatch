@@ -1,12 +1,11 @@
 import React from 'react';
-import { getUserFromToken } from '../lib/auth';
+import { getUserFromToken } from '../server-lib/auth';
 
 export async function getServerSideProps(context: any) {
   const { cookies } = context.req;
   const jwt = cookies['session'];
 
   const user = await getUserFromToken(jwt);
-  console.log(user);
 
   return { props: user };
 }

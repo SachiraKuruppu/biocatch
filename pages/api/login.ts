@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as argon2 from 'argon2';
 
-import { generateSignedToken, getSerializedCookie } from '../../lib/auth';
+import {
+  generateSignedToken,
+  getSerializedCookie
+} from '../../server-lib/auth';
 
 export default async function Login(req: NextApiRequest, res: NextApiResponse) {
   const { username, password } = req.body;

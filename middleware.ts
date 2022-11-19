@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getUserFromToken } from './lib/auth';
+import { getUserFromToken } from './server-lib/auth';
 
 export async function middleware(req: NextRequest) {
   const { cookies } = req;
