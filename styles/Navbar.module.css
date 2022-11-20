@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container a {
+  margin-left: 1em;
+  font-weight: bold;
+}
+
+.container a:hover {
+  color: blue;
+  text-decoration: underline;
+}
