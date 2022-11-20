@@ -1,6 +1,6 @@
 import Router from 'next/router';
-import React, { useContext, useState } from 'react';
-import { getCustomerSessionId } from '../client-lib/biocatch';
+import React, { useContext, useEffect, useState } from 'react';
+import { getCustomerSessionId, setContext } from '../client-lib/biocatch';
 import { LoginContext } from '../client-lib/login-context';
 import styles from '../styles/Login.module.css';
 
@@ -8,6 +8,10 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setLoggedIn } = useContext(LoginContext);
+
+  useEffect(() => {
+    setContext('login');
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

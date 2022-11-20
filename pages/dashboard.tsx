@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import {
   getCustomerSessionId,
-  setCustomerSessionId
+  setCustomerSessionId,
+  setContext
 } from '../client-lib/biocatch';
 import { getUserFromToken } from '../server-lib/auth';
 
@@ -22,6 +23,7 @@ export default function Dashboard({
   customerSessionId: string;
 }) {
   useEffect(() => {
+    setContext('dashboard');
     const savedCustomerSessionId = getCustomerSessionId();
     if (savedCustomerSessionId !== customerSessionId) {
       setCustomerSessionId(customerSessionId);

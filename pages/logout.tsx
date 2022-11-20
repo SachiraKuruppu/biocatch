@@ -1,6 +1,7 @@
 import Router, { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { LoginContext } from '../client-lib/login-context';
+import { setContext } from '../client-lib/biocatch';
 import styles from '../styles/Home.module.css';
 
 export default function Login() {
@@ -8,6 +9,8 @@ export default function Login() {
   const { setLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
+    setContext('logout');
+
     fetch('/api/logout', {
       method: 'POST'
     }).then(() => {
