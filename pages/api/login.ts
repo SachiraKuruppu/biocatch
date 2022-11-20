@@ -5,9 +5,10 @@ import {
   generateSignedToken,
   getSerializedCookie
 } from '../../server-lib/auth';
+import { initBioCatch } from '../../server-lib/biocatch';
 
 export default async function Login(req: NextApiRequest, res: NextApiResponse) {
-  const { username, password } = req.body;
+  const { username, password, customerSessionId } = req.body;
 
   // Here I simulate the user login flow, without using an actual db
   // check if user exist in the db
@@ -23,8 +24,10 @@ export default async function Login(req: NextApiRequest, res: NextApiResponse) {
     user.email === username &&
     (await argon2.verify(user.hashedPassword, password))
   ) {
-    const token = await generateSignedToken(user);
+    const token = await generateSignedToken({ ...user, customerSessionId });
     const serializedCookie = getSerializedCookie(token);
+
+    initBioCatch(customerSessionId, username);
 
     res.setHeader('Set-Cookie', serializedCookie);
     res.status(200).json({ message: 'Success' });

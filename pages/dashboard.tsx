@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import {
+  getCustomerSessionId,
+  setCustomerSessionId
+} from '../client-lib/biocatch';
 import { getUserFromToken } from '../server-lib/auth';
 
 export async function getServerSideProps(context: any) {
@@ -10,7 +14,20 @@ export async function getServerSideProps(context: any) {
   return { props: user };
 }
 
-export default function Dashboard({ email }: { email: string }) {
+export default function Dashboard({
+  email,
+  customerSessionId
+}: {
+  email: string;
+  customerSessionId: string;
+}) {
+  useEffect(() => {
+    const savedCustomerSessionId = getCustomerSessionId();
+    if (savedCustomerSessionId !== customerSessionId) {
+      setCustomerSessionId(customerSessionId);
+    }
+  }, [customerSessionId]);
+
   return (
     <main>
       <p>Hi {email},</p>

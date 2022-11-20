@@ -3,7 +3,11 @@ import { SignJWT, jwtVerify } from 'jose';
 
 const SECRET = process.env.SECRET as string;
 
-export async function generateSignedToken(user: { id: number; email: string }) {
+export async function generateSignedToken(user: {
+  id: number;
+  email: string;
+  customerSessionId: string;
+}) {
   const now = Math.floor(Date.now() / 1000);
   const expiry = now + 60 * 60 * 24 * 3;
 

@@ -1,10 +1,13 @@
 import Router from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { getCustomerSessionId } from '../client-lib/biocatch';
+import { LoginContext } from '../client-lib/login-context';
 import styles from '../styles/Login.module.css';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setLoggedIn } = useContext(LoginContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,10 +17,14 @@ export default function Login() {
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials)
+      body: JSON.stringify({
+        ...credentials,
+        customerSessionId: getCustomerSessionId()
+      })
     });
 
     if (response.status === 200) {
+      setLoggedIn(true);
       Router.push('/dashboard');
     }
   };

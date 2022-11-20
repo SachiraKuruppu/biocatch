@@ -9,10 +9,17 @@ declare global {
   }
 }
 
+const LOCAL_STORAGE_KEY = 'BIOCATCH_SESSION_ID';
+
 export function setCustomerSessionId(sessionId: string) {
   window.cdApi.setCustomerSessionId(sessionId);
+  sessionStorage.setItem(LOCAL_STORAGE_KEY, sessionId);
 }
 
 export function setContext(pageName: string) {
   window.cdApi.changeContext(pageName);
+}
+
+export function getCustomerSessionId() {
+  return sessionStorage.getItem(LOCAL_STORAGE_KEY);
 }
