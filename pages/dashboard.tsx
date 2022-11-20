@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import {
   getCustomerSessionId,
   setCustomerSessionId,
@@ -22,6 +23,9 @@ export default function Dashboard({
   email: string;
   customerSessionId: string;
 }) {
+  const router = useRouter();
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
     setContext('dashboard');
     const savedCustomerSessionId = getCustomerSessionId();
@@ -30,11 +34,18 @@ export default function Dashboard({
     }
   }, [customerSessionId]);
 
+  const handlePayment = async () => {
+    const response = await fetch('/api/payment');
+    const jsonResponse = await response.json();
+    setMessage(jsonResponse.message);
+  };
+
   return (
     <main>
       <p>Hi {email},</p>
       <p>This is a mock dashboard with user account info</p>
-      <button>Make Payment</button>
+      <button onClick={handlePayment}>Make Payment</button>
+      <p>{message}</p>
     </main>
   );
 }
